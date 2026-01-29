@@ -1,33 +1,31 @@
 package com.wendy.studentmanagementapp.model;
 
-import jakarta.persistence.*;
-import java.util.Set;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Teacher {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long teacherId;
 
     private String name;
     private String email;
 
-    @ManyToMany
-    @JoinTable(
-            name = "teacher_course",
-            joinColumns = @JoinColumn(name = "teacher_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id")
-    )
-    private Set<Course> courses;  // Many-to-many relationship with Course
+    @ManyToOne
+    private Course course; // Many-to-One relationship with Course
 
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    // Getters and setters
+    public Long getTeacherId() {
+        return teacherId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setTeacherId(Long teacherId) {
+        this.teacherId = teacherId;
     }
 
     public String getName() {
@@ -46,11 +44,11 @@ public class Teacher {
         this.email = email;
     }
 
-    public Set<Course> getCourses() {
-        return courses;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourses(Set<Course> courses) {
-        this.courses = courses;
+    public void setCourse(Course course) {
+        this.course = course;
     }
 }
